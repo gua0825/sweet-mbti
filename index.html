@@ -1073,6 +1073,30 @@
       transform: translateY(0);
     }
 
+    .reward-section {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(42, 32, 27, 0.24);
+      text-align: center;
+    }
+
+    .reward-copy {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.65;
+    }
+
+    .reward-image {
+      display: block;
+      width: 200px;
+      max-width: 100%;
+      height: auto;
+      margin: 12px auto 0;
+      border-radius: 16px;
+    }
+
     .result-footnote {
       margin: 15px 0 0;
       color: var(--muted);
@@ -1653,6 +1677,17 @@
             <button class="primary-action" id="copyResultButton" type="button">复制我的结果</button>
             <button class="secondary-action" id="restartButton" type="button">再测一次</button>
           </div>
+          <section class="reward-section" aria-labelledby="rewardCopy">
+            <p class="reward-copy" id="rewardCopy">如果这个测试让你开心，请助力主播购买token</p>
+            <img
+              class="reward-image"
+              src="reward.png"
+              alt="给呱赞赏二维码"
+              width="200"
+              height="200"
+              loading="lazy"
+            >
+          </section>
           <p class="result-footnote">* 本测试仅供娱乐。人比 MBTI 复杂，也比任何一份甜品都更有层次。</p>
         </div>
       </div>
