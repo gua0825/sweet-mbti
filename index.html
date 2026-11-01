@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6eee1">
+  <meta name="description" content="28 道轻松小题，测出你的趣味 MBTI 甜品型人格。">
+  <title>Sweet Type · 趣味 MBTI 甜品型人格测试</title>
+  <style>
+    :root {
+      --ink: #241b17;
+      --ink-soft: #5f5149;
+      --paper: #f6eee1;
+      --card: #fffdf8;
+      --pink: #ff6684;
+      --pink-deep: #e84769;
+      --pink-soft: #ffe1e7;
+      --lime: #d8f36b;
+      --butter: #ffd66d;
+      --mint: #bfe9d5;
+      --cocoa: #754a3b;
+      --line: #2a201b;
+      --muted: #81736a;
+      --shadow: #2a201b;
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 17px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 8%, rgba(255, 214, 109, 0.34), transparent 25%),
+        radial-gradient(circle at 93% 21%, rgba(255, 102, 132, 0.2), transparent 25%),
+        radial-gradient(circle at 80% 92%, rgba(191, 233, 213, 0.45), transparent 28%),
+        var(--paper);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      opacity: 0.24;
+      background-image:
+        linear-gradient(rgba(42, 32, 27, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 32, 27, 0.1) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button {
+      color: inherit;
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .site-shell {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 22px 0 30px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 52px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 2.5px 2.5px 0 var(--ink);
+      transform: rotate(-7deg);
+    }
+
+    .brand-mark svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .brand span:last-child {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand small {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 7px 12px;
+      border: 1px solid rgba(42, 32, 27, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.58);
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: #47a46b;
+      box-shadow: 0 0 0 4px rgba(71, 164, 107, 0.13);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(340px, 0.88fr) minmax(540px, 1.34fr);
+      gap: clamp(38px, 6vw, 86px);
+      align-items: center;
+    }
+
+    .hero {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 650px;
+      padding: 12px 0 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 8px;
+      margin: 0 0 20px;
+      color: var(--pink-deep);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 25px;
+      height: 2px;
+      content: "";
+      background: currentColor;
+    }
+
+    .hero h1 {
+      max-width: 570px;
+      margin: 0;
+      font-size: clamp(48px, 5.15vw, 76px);
+      font-weight: 950;
+      letter-spacing: -0.075em;
+      line-height: 0.96;
+    }
+
+    .hero-line {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .hero h1 .highlight {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+
+    .hero h1 .highlight::after {
+      position: absolute;
+      right: -7px;
+      bottom: 1px;
+      left: -4px;
+      z-index: -1;
+      height: 27%;
+      border-radius: 999px;
+      content: "";
+      background: var(--lime);
+      transform: rotate(-1.8deg);
+    }
+
+    .hero-sub {
+      max-width: 430px;
+      margin: 22px 0 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.8;
+    }
+
+    .hero-sub strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .mascot-stage {
+      position: relative;
+      width: min(100%, 480px);
+      height: 325px;
+      margin-top: 18px;
+      margin-bottom: -4px;
+    }
+
+    .mascot-stage::before {
+      position: absolute;
+      top: 46%;
+      left: 53%;
+      width: 84%;
+      aspect-ratio: 1;
+      border: 1.5px dashed rgba(42, 32, 27, 0.26);
+      border-radius: 50%;
+      content: "";
+      transform: translate(-50%, -50%) rotate(-5deg);
+    }
+
+    .hero-dessert {
+      position: absolute;
+      right: 4%;
+      bottom: -4px;
+      width: 84%;
+      max-width: 405px;
+      filter: drop-shadow(0 17px 0 rgba(42, 32, 27, 0.055));
+      animation: mascot-float 5s ease-in-out infinite;
+    }
+
+    .hero-dessert svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .float-note {
+      position: absolute;
+      z-index: 3;
+      padding: 12px 15px;
+      border: 1.5px solid var(--ink);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 4px 4px 0 var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+      animation: note-float 5.8s ease-in-out infinite;
+    }
+
+    .float-note:nth-of-type(1) {
+      top: 44px;
+      left: 1%;
+      transform: rotate(-5deg);
+    }
+
+    .float-note:nth-of-type(2) {
+      top: 11px;
+      right: 3%;
+      background: var(--butter);
+      transform: rotate(4deg);
+      animation-delay: -2.1s;
+    }
+
+    .float-note:nth-of-type(3) {
+      right: 4%;
+      bottom: 58px;
+      background: var(--mint);
+      transform: rotate(-3deg);
+      animation-delay: -3.3s;
+    }
+
+    .hero-foot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-foot .line {
+      width: 38px;
+      height: 1px;
+      background: rgba(42, 32, 27, 0.3);
+    }
+
+    .quiz-card {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      min-height: 650px;
+      padding: clamp(25px, 3.2vw, 42px);
+      border: 1.5px solid var(--ink);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      box-shadow: 10px 10px 0 var(--ink);
+    }
+
+    .quiz-card::after {
+      position: absolute;
+      top: -42px;
+      right: -44px;
+      width: 132px;
+      height: 132px;
+      border: 1.5px solid rgba(42, 32, 27, 0.17);
+      border-radius: 50%;
+      content: "";
+      background: var(--pink-soft);
+    }
+
+    .quiz-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 23px;
+      border-bottom: 1px solid rgba(42, 32, 27, 0.15);
+    }
+
+    .quiz-label {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .quiz-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .step-count {
+      color: var(--ink);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .step-count span {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .progress-wrap {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 9px;
+      overflow: hidden;
+      border: 1px solid rgba(42, 32, 27, 0.26);
+      border-radius: 999px;
+      background: #eee6db;
+    }
+
+    .progress-fill {
+      width: 3.57%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink), #ff8b9f);
+      transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .question-view {
+      display: flex;
+      min-height: 406px;
+      flex-direction: column;
+      padding: clamp(32px, 4.4vw, 54px) 0 30px;
+    }
+
+    .question-kicker {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      min-height: 30px;
+      margin-bottom: 17px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: var(--pink-soft);
+      color: #a52f4d;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .question-kicker::before {
+      margin-right: 6px;
+      content: "✦";
+      font-size: 10px;
+    }
+
+    .question-title {
+      max-width: 630px;
+      min-height: 2.3em;
+      margin: 0;
+      font-size: clamp(27px, 3.25vw, 40px);
+      font-weight: 900;
+      letter-spacing: -0.055em;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 28px;
+    }
+
+    .option-button {
+      position: relative;
+      display: flex;
+      min-height: 154px;
+      padding: 20px;
+      overflow: hidden;
+      flex-direction: column;
+      align-items: flex-start;
+      border: 1.5px solid var(--ink);
+      border-radius: 20px;
+      background: #fffaf2;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+    }
+
+    .option-button:hover:not(:disabled) {
+      background: #fff7e8;
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(-2px, -2px);
+    }
+
+    .option-button:active:not(:disabled) {
+      box-shadow: 1px 1px 0 var(--ink);
+      transform: translate(1px, 1px);
+    }
+
+    .option-button:disabled {
+      cursor: default;
+    }
+
+    .option-button.is-selected {
+      background: var(--butter);
+      box-shadow: 4px 4px 0 var(--ink);
+      transform: translate(-2px, -2px) rotate(-0.35deg);
+    }
+
+    .option-button.is-selected .option-letter {
+      color: var(--card);
+      background: var(--ink);
+    }
+
+    .option-button.is-selected .option-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .option-topline {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .option-letter {
+      display: inline-grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 9px;
+      background: var(--card);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    .option-icon {
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .option-text {
+      display: block;
+      max-width: 100%;
+      margin: 0;
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      line-height: 1.55;
+    }
+
+    .option-note {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .option-arrow {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 900;
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .panel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(42, 32, 27, 0.15);
+    }
+
+    .back-button,
+    .view-result-button {
+      display: inline-flex;
+      min-height: 42px;
+      padding: 7px 3px;
+      align-items: center;
+      gap: 7px;
+      border: 0;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .back-button {
+      color: var(--ink-soft);
+    }
+
+    .back-button::before {
+      content: "←";
+      font-size: 16px;
+    }
+
+    .back-button:disabled {
+      visibility: hidden;
+      cursor: default;
+    }
+
+    .view-result-button {
+      display: none;
+      padding: 8px 13px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--lime);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .view-result-button.is-visible {
+      display: inline-flex;
+    }
+
+    .answer-guide {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .key-hint {
+      display: inline-flex;
+      gap: 3px;
+    }
+
+    .key-hint kbd {
+      display: inline-grid;
+      min-width: 21px;
+      height: 21px;
+      padding: 0 4px;
+      place-items: center;
+      border: 1px solid rgba(42, 32, 27, 0.3);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      background: #fff;
+      color: var(--ink-soft);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 30px;
+      color: rgba(42, 32, 27, 0.55);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .site-footer strong {
+      color: var(--ink-soft);
+    }
+
+    .result-dialog {
+      width: min(910px, calc(100% - 32px));
+      max-width: none;
+      max-height: none;
+      padding: 0;
+      overflow: visible;
+      border: 0;
+      background: transparent;
+    }
+
+    .result-dialog::backdrop {
+      background: rgba(35, 25, 21, 0.58);
+      backdrop-filter: blur(8px);
+    }
+
+    .result-dialog[open] {
+      animation: dialog-fade 240ms ease both;
+    }
+
+    .result-card {
+      --result-main: #ff6684;
+      --result-light: #ffe1e7;
+      --result-dark: #9a314a;
+      --result-accent: #ffd66d;
+      position: relative;
+      max-height: calc(100dvh - 32px);
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 1.5px solid var(--ink);
+      border-radius: 32px;
+      background: var(--card);
+      box-shadow: 10px 10px 0 var(--ink);
+      animation: result-pop 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(42, 32, 27, 0.15);
+    }
+
+    .result-head-copy {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .result-head-copy::before {
+      width: 9px;
+      height: 9px;
+      border-radius: 50% 50% 45% 55%;
+      content: "";
+      background: var(--result-main);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--result-main) 18%, transparent);
+    }
+
+    .dialog-close {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(42, 32, 27, 0.24);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 160ms ease, transform 160ms ease;
+    }
+
+    .dialog-close:hover {
+      background: #f4ecdf;
+      transform: rotate(6deg);
+    }
+
+    .dialog-close svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .result-content {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.82fr) minmax(350px, 1.18fr);
+      gap: 0;
+    }
+
+    .result-art-side {
+      position: relative;
+      display: flex;
+      min-height: 485px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-right: 1px solid rgba(42, 32, 27, 0.14);
+      background:
+        radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--result-light) 80%, transparent), transparent 54%),
+        #fff9ef;
+    }
+
+    .result-art-side::before,
+    .result-art-side::after {
+      position: absolute;
+      border: 1.5px dashed color-mix(in srgb, var(--result-main) 60%, var(--ink));
+      border-radius: 50%;
+      content: "";
+      opacity: 0.42;
+    }
+
+    .result-art-side::before {
+      width: 250px;
+      height: 250px;
+      transform: rotate(12deg);
+    }
+
+    .result-art-side::after {
+      width: 300px;
+      height: 300px;
+      transform: rotate(-9deg);
+    }
+
+    .result-art {
+      position: relative;
+      z-index: 1;
+      width: min(93%, 360px);
+      margin-top: 4px;
+      filter: drop-shadow(0 17px 0 rgba(42, 32, 27, 0.05));
+    }
+
+    .result-art svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .result-sticker {
+      position: absolute;
+      right: 21px;
+      bottom: 22px;
+      z-index: 2;
+      padding: 10px 12px;
+      border: 1.5px solid var(--ink);
+      border-radius: 11px;
+      background: var(--result-accent);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1.35;
+      transform: rotate(3deg);
+    }
+
+    .result-copy {
+      display: flex;
+      padding: 34px 34px 30px;
+      flex-direction: column;
+    }
+
+    .result-type-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .result-type {
+      display: inline-grid;
+      min-height: 30px;
+      padding: 5px 10px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--card);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 45px);
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    .result-title span {
+      position: relative;
+      display: inline;
+      color: var(--result-dark);
+      white-space: nowrap;
+    }
+
+    .result-title span::after {
+      position: absolute;
+      right: 0;
+      bottom: -2px;
+      left: 0;
+      z-index: -1;
+      height: 9px;
+      border-radius: 99px;
+      content: "";
+      background: var(--result-light);
+    }
+
+    .result-tagline {
+      margin: 17px 0 0;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.65;
+    }
+
+    .result-description {
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.85;
+    }
+
+    .trait-list {
+      display: flex;
+      gap: 7px;
+      margin: 18px 0 0;
+      padding: 0;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .trait-list li {
+      padding: 6px 9px;
+      border: 1px solid rgba(42, 32, 27, 0.2);
+      border-radius: 999px;
+      background: #faf4e9;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 750;
+    }
+
+    .score-block {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(42, 32, 27, 0.24);
+    }
+
+    .score-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 13px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px 17px;
+    }
+
+    .score-item {
+      min-width: 0;
+    }
+
+    .score-item-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .score-item-top span {
+      color: var(--muted);
+    }
+
+    .score-item-top strong {
+      color: var(--result-dark);
+      font-size: 10px;
+    }
+
+    .score-track {
+      height: 5px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #eee6da;
+    }
+
+    .score-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--result-main);
+      transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .pairing-note {
+      margin-top: 22px;
+      padding: 13px 14px;
+      border-left: 3px solid var(--result-main);
+      border-radius: 0 11px 11px 0;
+      background: var(--result-light);
+      color: var(--ink-soft);
+      font-size: 11px;
+      font-weight: 650;
+      line-height: 1.6;
+    }
+
+    .pairing-note strong {
+      color: var(--ink);
+      font-weight: 850;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .primary-action,
+    .secondary-action {
+      display: inline-flex;
+      min-height: 45px;
+      padding: 10px 17px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .primary-action {
+      background: var(--ink);
+      color: var(--card);
+      box-shadow: 3px 3px 0 color-mix(in srgb, var(--result-main) 68%, transparent);
+    }
+
+    .secondary-action {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .primary-action:hover,
+    .secondary-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary-action:active,
+    .secondary-action:active {
+      transform: translateY(0);
+    }
+
+    .result-footnote {
+      margin: 15px 0 0;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    @keyframes mascot-float {
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+      50% {
+        transform: translateY(-8px) rotate(0.6deg);
+      }
+    }
+
+    @keyframes note-float {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+      50% {
+        translate: 0 -6px;
+      }
+    }
+
+    @keyframes dialog-fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes result-pop {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96) rotate(-0.5deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .main-grid {
+        grid-template-columns: minmax(295px, 0.72fr) minmax(510px, 1.28fr);
+        gap: 38px;
+      }
+
+      .hero h1 {
+        font-size: clamp(49px, 6vw, 68px);
+      }
+
+      .mascot-stage {
+        height: 285px;
+      }
+
+      .quiz-card {
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-shell {
+        width: min(720px, calc(100% - 38px));
+        padding-top: 18px;
+      }
+
+      .topbar {
+        margin-bottom: 22px;
+      }
+
+      .main-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+      }
+
+      .hero {
+        display: grid;
+        min-height: 0;
+        padding: 20px 4px 2px;
+        grid-template-columns: minmax(0, 1fr) 265px;
+        align-items: center;
+        column-gap: 16px;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        font-size: clamp(49px, 9vw, 66px);
+      }
+
+      .hero-sub {
+        max-width: 390px;
+        margin-top: 15px;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .mascot-stage {
+        width: 270px;
+        height: 230px;
+        margin: 0;
+      }
+
+      .hero-dessert {
+        right: -3%;
+        width: 97%;
+      }
+
+      .float-note {
+        padding: 8px 10px;
+        font-size: 9px;
+      }
+
+      .float-note:nth-of-type(1) {
+        top: 44px;
+        left: -4%;
+      }
+
+      .float-note:nth-of-type(2) {
+        top: 2px;
+        right: 0;
+      }
+
+      .float-note:nth-of-type(3) {
+        right: -5%;
+        bottom: 24px;
+      }
+
+      .hero-foot {
+        grid-column: 1 / -1;
+      }
+
+      .quiz-card {
+        min-height: 0;
+        padding: clamp(25px, 5vw, 38px);
+      }
+
+      .question-title {
+        min-height: 0;
+      }
+
+      .question-view {
+        min-height: 390px;
+      }
+
+      .result-content {
+        grid-template-columns: minmax(235px, 0.75fr) minmax(320px, 1.25fr);
+      }
+
+      .result-art-side {
+        min-height: 470px;
+      }
+
+      .result-copy {
+        padding: 30px 27px 26px;
+      }
+    }
+
+    @media (max-width: 660px) {
+      .site-shell {
+        width: min(100% - 28px, 580px);
+        padding-bottom: 22px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        margin-bottom: 17px;
+      }
+
+      .top-meta .meta-pill:nth-child(2) {
+        display: none;
+      }
+
+      .meta-pill {
+        min-height: 29px;
+        padding: 6px 10px;
+        font-size: 10px;
+      }
+
+      .main-grid {
+        gap: 21px;
+      }
+
+      .hero {
+        display: block;
+        padding: 8px 3px 5px;
+      }
+
+      .eyebrow {
+        margin-bottom: 15px;
+      }
+
+      .hero h1 {
+        font-size: clamp(45px, 13vw, 64px);
+      }
+
+      .hero-sub {
+        margin-top: 14px;
+        font-size: 13px;
+      }
+
+      .mascot-stage,
+      .hero-foot {
+        display: none;
+      }
+
+      .quiz-card {
+        padding: 22px 18px 18px;
+        border-radius: 26px;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .quiz-card::after {
+        top: -51px;
+        right: -55px;
+      }
+
+      .quiz-top {
+        padding-bottom: 17px;
+      }
+
+      .quiz-title {
+        font-size: 14px;
+      }
+
+      .quiz-label {
+        font-size: 9px;
+      }
+
+      .progress-wrap {
+        margin-top: 14px;
+      }
+
+      .question-view {
+        min-height: 0;
+        padding: 29px 0 25px;
+      }
+
+      .question-kicker {
+        margin-bottom: 14px;
+      }
+
+      .question-title {
+        font-size: clamp(25px, 7.2vw, 34px);
+        line-height: 1.23;
+        text-wrap: pretty;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .option-button {
+        min-height: 109px;
+        padding: 16px 17px;
+        border-radius: 16px;
+      }
+
+      .option-topline {
+        margin-bottom: 12px;
+      }
+
+      .option-text {
+        padding-right: 22px;
+        font-size: 14px;
+      }
+
+      .option-note {
+        margin-top: 5px;
+        padding-right: 20px;
+      }
+
+      .panel-footer {
+        gap: 10px;
+        padding-top: 13px;
+      }
+
+      .answer-guide {
+        font-size: 9px;
+      }
+
+      .key-hint {
+        display: none;
+      }
+
+      .site-footer {
+        padding: 21px 2px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+      }
+
+      .result-dialog {
+        width: calc(100% - 18px);
+      }
+
+      .result-card {
+        max-height: calc(100dvh - 18px);
+        border-radius: 25px;
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+
+      .result-head {
+        padding: 15px 17px;
+      }
+
+      .result-content {
+        grid-template-columns: 1fr;
+      }
+
+      .result-art-side {
+        min-height: 300px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(42, 32, 27, 0.14);
+      }
+
+      .result-art {
+        width: min(74%, 270px);
+        margin: -4px 0 0;
+      }
+
+      .result-art-side::before {
+        width: 205px;
+        height: 205px;
+      }
+
+      .result-art-side::after {
+        width: 250px;
+        height: 250px;
+      }
+
+      .result-sticker {
+        right: 17px;
+        bottom: 16px;
+      }
+
+      .result-copy {
+        padding: 26px 21px 22px;
+      }
+
+      .result-title {
+        font-size: clamp(29px, 8.5vw, 39px);
+      }
+
+      .result-tagline {
+        font-size: 14px;
+      }
+
+      .score-grid {
+        gap: 12px;
+      }
+
+      .result-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .brand {
+        font-size: 13px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .top-meta {
+        gap: 5px;
+      }
+
+      .meta-pill {
+        padding-inline: 8px;
+      }
+
+      .question-title {
+        font-size: 24px;
+      }
+
+      .option-button {
+        padding: 14px;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#quiz" aria-label="Sweet Type 甜品人格测试">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4.5 10.2c2.7-2.7 12.3-2.7 15 0" stroke="#241b17" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M5.2 11.4h13.6l-1.2 7.2a2 2 0 0 1-2 1.7H8.4a2 2 0 0 1-2-1.7l-1.2-7.2Z" fill="#fffdf8" stroke="#241b17" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M12 6.4V4.8m0 0c1.3-1.7 3.5-.2 2.4 1.2-.6.8-1.7.6-2.4-.2Z" stroke="#241b17" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="9.5" cy="15.2" r=".9" fill="#241b17"/>
+            <circle cx="14.5" cy="15.2" r=".9" fill="#241b17"/>
+          </svg>
+        </span>
+        <span>
+          SWEET TYPE
+          <small>DESSERT MBTI</small>
+        </span>
+      </a>
+      <div class="top-meta" aria-label="测试信息">
+        <span class="meta-pill"><i class="live-dot" aria-hidden="true"></i>今日甜度已上线</span>
+        <span class="meta-pill">28 道题</span>
+        <span class="meta-pill">约 3 分钟</span>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A juicy personality test</p>
+          <h1 id="page-title">你的性格，<br><span class="hero-line">是哪一口<span class="highlight">甜</span>？</span></h1>
+          <p class="hero-sub">
+            28 道轻松小题，不查配料表，只凭第一直觉。<br>
+            最后会端上一份<strong>专属于你的甜品人格</strong>。
+          </p>
+        </div>
+
+        <div class="mascot-stage" aria-hidden="true">
+          <div class="float-note">NO WRONG<br>ANSWER 🍓</div>
+          <div class="float-note">今日配方<br>30% 糯叽叽</div>
+          <div class="float-note">100%<br>可爱暴击</div>
+          <div class="hero-dessert" id="heroDessert"></div>
+        </div>
+
+        <div class="hero-foot">
+          <span class="line" aria-hidden="true"></span>
+          <span>直觉作答 · 不做攻略 · 答案都很可爱</span>
+        </div>
+      </section>
+
+      <section class="quiz-card" id="quiz" aria-labelledby="quizTitle">
+        <div class="quiz-top">
+          <div>
+            <p class="quiz-label">Personality tasting</p>
+            <h2 class="quiz-title" id="quizTitle">甜品人格试吃中</h2>
+          </div>
+          <div class="step-count" aria-label="答题进度">
+            <strong id="currentNumber">01</strong>
+            <span>/ 28</span>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div
+            class="progress-track"
+            id="progressTrack"
+            role="progressbar"
+            aria-label="测试进度"
+            aria-valuemin="0"
+            aria-valuemax="28"
+            aria-valuenow="1"
+          >
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="question-view" id="questionView" aria-live="polite">
+          <div class="question-kicker" id="questionKicker">社交电量</div>
+          <h3 class="question-title" id="questionTitle">正在准备今天的第一口甜……</h3>
+          <div class="options" id="options" role="group" aria-label="请选择更符合你的选项">
+            <button class="option-button" type="button" data-choice="a">
+              <span class="option-topline">
+                <span class="option-letter">A</span>
+                <span class="option-icon" aria-hidden="true">🍰</span>
+              </span>
+              <span class="option-text"></span>
+              <span class="option-note"></span>
+              <span class="option-arrow" aria-hidden="true">↘</span>
+            </button>
+            <button class="option-button" type="button" data-choice="b">
+              <span class="option-topline">
+                <span class="option-letter">B</span>
+                <span class="option-icon" aria-hidden="true">🍓</span>
+              </span>
+              <span class="option-text"></span>
+              <span class="option-note"></span>
+              <span class="option-arrow" aria-hidden="true">↘</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-footer">
+          <div style="display:flex; align-items:center; gap:9px;">
+            <button class="back-button" id="backButton" type="button">上一题</button>
+            <button class="view-result-button" id="viewResultButton" type="button">查看我的甜品结果</button>
+          </div>
+          <div class="answer-guide">
+            <span class="key-hint" aria-hidden="true"><kbd>A</kbd><kbd>/</kbd><kbd>1</kbd></span>
+            <span>选择后自动进入下一题</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span><strong>SWEET TYPE</strong> · 一份不太严肃的自我观察</span>
+      <span>结果仅供娱乐，不构成任何心理学诊断</span>
+    </footer>
+  </div>
+
+  <dialog class="result-dialog" id="resultDialog" aria-labelledby="resultTitle" aria-describedby="resultDescription">
+    <article class="result-card">
+      <header class="result-head">
+        <span class="result-head-copy">YOUR SWEET PERSONALITY</span>
+        <button class="dialog-close" id="closeDialogButton" type="button" aria-label="关闭结果卡片">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="result-content">
+        <div class="result-art-side">
+          <div class="result-art" id="resultArt" aria-hidden="true"></div>
+          <div class="result-sticker" id="resultSticker">新鲜出炉<br>请趁热认领</div>
+        </div>
+
+        <div class="result-copy">
+          <div class="result-type-line">
+            <span class="result-type" id="resultType">INFP</span>
+            <span class="result-label">测试结果 · 甜品人格</span>
+          </div>
+          <h2 class="result-title" id="resultTitle">你是一个<span id="resultName">【草莓芭菲型人格】</span></h2>
+          <p class="result-tagline" id="resultTagline"></p>
+          <p class="result-description" id="resultDescription"></p>
+          <ul class="trait-list" id="resultTraits" aria-label="人格关键词"></ul>
+
+          <div class="score-block" aria-label="四个维度的倾向">
+            <div class="score-heading">
+              <span>你的口味倾向</span>
+              <span>更偏向哪一边</span>
+            </div>
+            <div class="score-grid" id="scoreGrid"></div>
+          </div>
+
+          <div class="pairing-note" id="pairingNote"></div>
+
+          <div class="result-actions">
+            <button class="primary-action" id="copyResultButton" type="button">复制我的结果</button>
+            <button class="secondary-action" id="restartButton" type="button">再测一次</button>
+          </div>
+          <p class="result-footnote">* 本测试仅供娱乐。人比 MBTI 复杂，也比任何一份甜品都更有层次。</p>
+        </div>
+      </div>
+    </article>
+  </dialog>
+
+  <div class="sr-only" id="copyAnnouncer" aria-live="polite"></div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#f6eee1;color:#241b17;font-weight:700;text-align:center;">
+      这个小测试需要开启 JavaScript 才能继续，请开启后再刷新页面。
+    </div>
+  </noscript>
+
+  <script>
+    // 28 道题：每个 MBTI 维度各 7 题，避免出现平票。
+    const questions = [
+      {
+        category: "社交电量",
+        prompt: "周末终于空出一天，你更倾向于？",
+        a: { text: "宅家打游戏，把世界调成静音", note: "舒适区是我私人的 VIP 包厢", value: "I", icon: "🎮" },
+        b: { text: "出门和朋友聚会，顺便制造点热闹", note: "能见面就别在群里精神握手", value: "E", icon: "🎈" }
+      },
+      {
+        category: "初次见面",
+        prompt: "被朋友拉去认识一群新朋友，你通常会？",
+        a: { text: "先安静观察，等磁场对上再开口", note: "我是慢热型加热，不是没熟", value: "I", icon: "🫖" },
+        b: { text: "五分钟内开始交换梗和故事", note: "自来熟不是技能，是呼吸", value: "E", icon: "💬" }
+      },
+      {
+        category: "能量补给",
+        prompt: "连续玩了两天之后，你最需要的是？",
+        a: { text: "一个人待着，把社交电量慢慢充回来", note: "静音模式也是一种保养", value: "I", icon: "🌙" },
+        b: { text: "再来一场，感觉状态才刚刚热起来", note: "人多的时候，我的电池反而扩容", value: "E", icon: "✨" }
+      },
+      {
+        category: "临时邀约",
+        prompt: "周四晚上朋友突然发来一句“现在出来？”，你会？",
+        a: { text: "在心里出席一下，人就不必到场了", note: "精神到场，已算给足排面", value: "I", icon: "🛋️" },
+        b: { text: "外套已经穿好，顺便问还有谁", note: "临时邀约是生活发来的彩蛋", value: "E", icon: "🏃" }
+      },
+      {
+        category: "旅行归来",
+        prompt: "旅行刚回家，你最可能先做哪件事？",
+        a: { text: "关机放空，独自整理照片和心情", note: "先把热闹安静地消化掉", value: "I", icon: "🎧" },
+        b: { text: "把照片和段子打包发群，组织下次旅行", note: "快乐当然要公放", value: "E", icon: "📸" }
+      },
+      {
+        category: "讨论现场",
+        prompt: "小组讨论遇到一个复杂问题时，你更像？",
+        a: { text: "先在脑中过三遍，想清楚再发言", note: "沉默不代表没在开会", value: "I", icon: "🧠" },
+        b: { text: "边说边整理，说着说着答案就出来了", note: "声音是我的第二块草稿纸", value: "E", icon: "🗣️" }
+      },
+      {
+        category: "好消息",
+        prompt: "听到一个天大的好消息，你的第一反应是？",
+        a: { text: "先自己把快乐捂热，再决定告诉谁", note: "喜悦也需要一点独处时间", value: "I", icon: "🎁" },
+        b: { text: "立刻广播，最好全世界都来庆祝", note: "好消息音量小了会过期", value: "E", icon: "📣" }
+      },
+      {
+        category: "探索方式",
+        prompt: "去陌生街区找一家甜品店，你会？",
+        a: { text: "打开地图，按门牌和路线稳稳找到", note: "迷路可以，绕远路不行", value: "S", icon: "🗺️" },
+        b: { text: "先沿直觉逛，迷路也许能撞见更好的店", note: "地图限制不了我的隐藏支线", value: "N", icon: "🧭" }
+      },
+      {
+        category: "听故事",
+        prompt: "朋友讲一件离谱的八卦，你最在意？",
+        a: { text: "时间、地点、人物，先把事情听完整", note: "细节不对，瓜都不甜", value: "S", icon: "🔍" },
+        b: { text: "已经自动补完前传、外传和人物关系图", note: "我不是吃瓜，我在做世界观", value: "N", icon: "🌌" }
+      },
+      {
+        category: "甜品雷达",
+        prompt: "菜单上有一款从没吃过的甜品，你如何决定？",
+        a: { text: "看真实评价和配料，稳妥下单", note: "先看成分表，再谈灵魂共鸣", value: "S", icon: "📋" },
+        b: { text: "名字越抽象越好，感觉它在召唤我", note: "概念对了，口味可以慢慢适应", value: "N", icon: "🪄" }
+      },
+      {
+        category: "做事配方",
+        prompt: "接到一个需要两周完成的项目，你会先？",
+        a: { text: "拆步骤、列时间线，把每一天安排好", note: "进度条让我感到安心", value: "S", icon: "📌" },
+        b: { text: "先画一个很大的愿景，细节到时自然长出来", note: "先让灵感发酵，再考虑称重", value: "N", icon: "💡" }
+      },
+      {
+        category: "晚霞时刻",
+        prompt: "回家路上看见一片特别好看的晚霞，你会想？",
+        a: { text: "这个颜色，明天大概是个好天气", note: "生活知识库已自动更新", value: "S", icon: "☀️" },
+        b: { text: "像一只正在赶 KPI 的海獭，还怪可爱的", note: "云不负责逻辑，负责浪漫", value: "N", icon: "☁️" }
+      },
+      {
+        category: "点单策略",
+        prompt: "第一次去一家新餐厅，你更愿意？",
+        a: { text: "点招牌和经典款，稳定发挥最重要", note: "第一次约会，信任老员工", value: "S", icon: "⭐" },
+        b: { text: "点名字最离谱的那道，看看能有多意外", note: "吃饭也是对想象力的测试", value: "N", icon: "🎲" }
+      },
+      {
+        category: "记忆抽屉",
+        prompt: "回忆上一次旅行，你最先想起的是？",
+        a: { text: "走过的路线、花掉的预算和吃了什么", note: "我的回忆自带电子表格", value: "S", icon: "🧾" },
+        b: { text: "一阵吹过来的风，和当时很好看的灯光", note: "记忆负责收藏氛围，不负责对账", value: "N", icon: "🌠" }
+      },
+      {
+        category: "朋友吐槽",
+        prompt: "朋友怒气冲冲地吐槽老板，你会先？",
+        a: { text: "问清事情经过，一起分析怎么解决", note: "情绪接收完毕，开始排查故障", value: "T", icon: "🧩" },
+        b: { text: "先抱抱他，说一句“这也太委屈了”", note: "先接住人，再拆问题", value: "F", icon: "🫂" }
+      },
+      {
+        category: "团队分歧",
+        prompt: "团队对两个方案争持不下，你更看重？",
+        a: { text: "哪个方案更有效，就选哪个", note: "对事不对人，效率不背锅", value: "T", icon: "⚖️" },
+        b: { text: "大家能不能把话舒服地说完、达成共识", note: "方案有温度，执行才不结霜", value: "F", icon: "🤝" }
+      },
+      {
+        category: "观影后遗症",
+        prompt: "刚看完一部电影，你最可能先讨论？",
+        a: { text: "剧情逻辑和那几个明显漏洞", note: "我的人形 bug 扫描仪已启动", value: "T", icon: "🎬" },
+        b: { text: "角色的情绪，以及自己哭湿了几张纸", note: "理性可以离场，我先共情一下", value: "F", icon: "🎭" }
+      },
+      {
+        category: "拒绝艺术",
+        prompt: "有人临时请你帮一个不太方便的忙，你会？",
+        a: { text: "直接说明这次不方便，讲清原因", note: "清楚拒绝，是双方的省电模式", value: "T", icon: "🙅" },
+        b: { text: "先打三行语气包，生怕对方感到被冷落", note: "拒绝已发送，温柔补丁随后", value: "F", icon: "💌" }
+      },
+      {
+        category: "晚餐决策",
+        prompt: "一群人纠结晚餐吃什么，你的选择方式是？",
+        a: { text: "看性价比和配送时间，快速定下来", note: "让胃和日程同时满意", value: "T", icon: "⏱️" },
+        b: { text: "先照顾今天谁最累、谁最想吃哪一口", note: "菜单之外，还有心情这一栏", value: "F", icon: "🍲" }
+      },
+      {
+        category: "规则现场",
+        prompt: "遇到一条明显不合理的规则，你更容易？",
+        a: { text: "指出问题在哪里，并给出修改方案", note: "不合理就拆开重组", value: "T", icon: "📐" },
+        b: { text: "先想到谁会因此难过或受委屈", note: "规则背后站着具体的人", value: "F", icon: "🫶" }
+      },
+      {
+        category: "穿搭意见",
+        prompt: "朋友穿了一套很奇特的搭配来问你，你会？",
+        a: { text: "真诚提醒，再给一个客观的调整建议", note: "实话可以包装，但不必失踪", value: "T", icon: "🧥" },
+        b: { text: "先找到亮点夸一夸，再温柔地递上外套", note: "保护自信，是审美的一部分", value: "F", icon: "🌸" }
+      },
+      {
+        category: "出发方式",
+        prompt: "计划一次旅行，你更喜欢？",
+        a: { text: "行程表精确到哪家店、几点出门", note: "未知很浪漫，但我想先知道午饭在哪", value: "J", icon: "📅" },
+        b: { text: "订好住处就出发，到当地看心情决定", note: "留白才是行程的灵魂配菜", value: "P", icon: "🎒" }
+      },
+      {
+        category: "DDL 观察",
+        prompt: "面对一周后的待办任务，你通常？",
+        a: { text: "能提前做完就提前做完，最安心", note: "把焦虑提前烤熟，然后吃掉", value: "J", icon: "✅" },
+        b: { text: "截止日期是第一生产力，越近越清醒", note: "灵感偏爱在最后一晚敲门", value: "P", icon: "⏳" }
+      },
+      {
+        category: "计划变动",
+        prompt: "原定计划突然被打乱，你的第一反应是？",
+        a: { text: "眉头一皱，立刻评估影响并重新安排", note: "我的备用方案有备用方案", value: "J", icon: "🧮" },
+        b: { text: "好呀，说不定临时版本更有意思", note: "人生就是要允许剧情拐弯", value: "P", icon: "🪁" }
+      },
+      {
+        category: "空间秩序",
+        prompt: "你的房间/桌面更接近哪种状态？",
+        a: { text: "东西尽量物归原位，整齐让我放松", note: "给每件小东西一个编制", value: "J", icon: "🧹" },
+        b: { text: "乱中有序，只有我知道灵感藏在哪", note: "请不要动，我的混乱有它自己的地图", value: "P", icon: "🌀" }
+      },
+      {
+        category: "周末开场",
+        prompt: "理想的周末通常怎么开始？",
+        a: { text: "前一晚列好清单，起床直接执行", note: "日程表是我给周末铺的床", value: "J", icon: "🗓️" },
+        b: { text: "醒来后看看今天是哪个人格上线", note: "先观察，再决定要不要成为计划", value: "P", icon: "🎨" }
+      },
+      {
+        category: "选择困难",
+        prompt: "在几个都不错的选择之间，你会？",
+        a: { text: "比较完就拍板，不想一直挂着", note: "决定本身也能节省能量", value: "J", icon: "🔔" },
+        b: { text: "再等等，说不定下一秒还有新选项", note: "不选，也是一个很宽敞的选项", value: "P", icon: "🫧" }
+      },
+      {
+        category: "最后一题",
+        prompt: "答完这一题，你最想？",
+        a: { text: "痛快收好答案背包，直接看结果", note: "流程走完，甜点上桌", value: "J", icon: "🏁" },
+        b: { text: "先看看结果，再决定要不要回头改一题", note: "最终答案，也可以有一点即兴", value: "P", icon: "🍴" }
+      }
+    ];
+
+    // 16 种结果。art 决定拟人插画造型，palette 控制整套甜品配色。
+    const results = {
+      INTJ: {
+        name: "冷静红丝绒",
+        art: "cake",
+        sticker: "外冷内甜\n请勿随意切",
+        palette: ["#ad3650", "#ffd7df", "#692536", "#f1c75b"],
+        tagline: "表面稳如老狗，内心已经推演到三步之后。",
+        description: "你像一个切面漂亮、口味利落的红丝绒蛋糕：不爱无效社交，但一旦认真，标准高到连奶油都要对齐。别人以为你冷，其实你只是把情绪锁进了夹层，没打算随便请人参观。",
+        traits: ["战略预备役", "审美有要求", "低电量社交"],
+        pairing: "<strong>最佳搭子：ISFP</strong> · 你负责蓝图，对方负责把日子过成漂亮作品。"
+      },
+      INTP: {
+        name: "脑洞提拉米苏",
+        art: "cup",
+        sticker: "脑内会议中\n请稍后再问",
+        palette: ["#8d6048", "#f2dec2", "#4e3125", "#d8aa68"],
+        tagline: "脑子像千层，随便一挖都能掉出一个新问题。",
+        description: "你是提拉米苏型大脑：层层叠叠全是想法，表层却写着“正在处理中”。别人问你想吃啥，你已经开始研究可可粉的颗粒度。你并不是不合群，只是脑内会议通常比现实聚会更精彩。",
+        traits: ["脑内宇宙常驻", "问题拆解机", "延迟回复专家"],
+        pairing: "<strong>最佳搭子：ENTJ</strong> · 你负责发明轨道，对方负责真的把火箭点着。"
+      },
+      ENTJ: {
+        name: "掌控拿破仑",
+        art: "cake",
+        sticker: "目标已锁定\n请让一让",
+        palette: ["#e3b15c", "#fff0c7", "#8f5828", "#f47f85"],
+        tagline: "别人还在讨论要不要出发，你已经订好回程。",
+        description: "你是拿破仑千层型项目经理，目标感和执行力叠得整整齐齐。混乱在你面前会自动生成会议纪要，效率是你的黄油。偶尔允许自己不当队长，人生也不是每一层都必须承重。",
+        traits: ["结果导向", "天生推进器", "不喜欢空转"],
+        pairing: "<strong>最佳搭子：INTP</strong> · 对方开拓脑洞，你把脑洞做成可交付版本。"
+      },
+      ENTP: {
+        name: "跳跳糖巴斯克",
+        art: "cake",
+        sticker: "嘴比脑子\n快0.5秒",
+        palette: ["#ef9859", "#ffe5c3", "#804624", "#9cdc74"],
+        tagline: "表面有点焦，脑内每天都在放烟花。",
+        description: "你最爱用“但如果换个角度呢”击穿全场沉默。规则在你眼里是可以拆开重装的乐高，观点越新奇越让你手痒。你擅长把问题玩出新路，也要记得有些关系不需要每次都赢。",
+        traits: ["反套路试用装", "金句批发商", "新鲜感驱动"],
+        pairing: "<strong>最佳搭子：INFJ</strong> · 你抛出火星，对方温柔地判断会不会把屋顶点着。"
+      },
+      INFJ: {
+        name: "读心抹茶千层",
+        art: "cake",
+        sticker: "你不用说\n我大概懂了",
+        palette: ["#91b66a", "#e8f2cc", "#416a3d", "#f4b0c0"],
+        tagline: "安静地点头，心里已经读完一整季人物关系。",
+        description: "你是抹茶千层，克制、安静，却一层比一层有内容。别人看到你在发呆，其实你已经从一句语气里推演完对方最近的人生状态。你的洞察很珍贵，但别让所有人的情绪都住进你的厨房。",
+        traits: ["情绪显微镜", "深度观察员", "温柔但有边界"],
+        pairing: "<strong>最佳搭子：ENTP</strong> · 对方带来新世界，你负责翻译其中的人心。"
+      },
+      INFP: {
+        name: "草莓芭菲",
+        art: "cup",
+        sticker: "外表平静\n内心三幕剧",
+        palette: ["#f489ad", "#ffe2ea", "#a3405f", "#f5d66a"],
+        tagline: "看着像在发呆，脑内已经上映了一部音乐剧。",
+        description: "你柔软、明亮、口味丰富，是最会收藏温柔瞬间的人。你容易被美好击中，也容易替世界难过；你的敏感不是麻烦，而是这份芭菲里最贵的配料。请相信，懂你的人会愿意一层一层慢慢吃。",
+        traits: ["内心戏米其林", "浪漫收藏家", "共情雷达全开"],
+        pairing: "<strong>最佳搭子：ESTJ</strong> · 你负责诗意，对方负责记得给盆栽浇水。"
+      },
+      ENFJ: {
+        name: "暖场焦糖布丁",
+        art: "cup",
+        sticker: "人形充电宝\n正在营业",
+        palette: ["#e6aa48", "#ffefbe", "#7a4a1e", "#ef7c92"],
+        tagline: "总能看见别人的潜力，顺手把人夸到愿意再努力一次。",
+        description: "你是焦糖布丁，表面圆润，敲开是热乎乎的关心。你很会照顾场子，也很会替别人把没说完的话接上。你是人形充电宝，但充电宝也需要插回插座，别把自己耗尽当成一种勋章。",
+        traits: ["气氛温度计", "成长型夸夸机", "责任感在线"],
+        pairing: "<strong>最佳搭子：ISFP</strong> · 你带路，对方提醒你沿途的花也值得看。"
+      },
+      ENFP: {
+        name: "彩虹可丽饼",
+        art: "cake",
+        sticker: "新鲜感\n是主食",
+        palette: ["#f3b865", "#ffe6da", "#8d5130", "#6ec3be"],
+        tagline: "热情一上来，能把一屋子人卷进同一个脑洞。",
+        description: "彩色、热闹、永远有下一层惊喜，说的就是你。你相信人生应该多一些“来都来了”，也愿意把开心主动分给别人。三分钟后你可能会被另一件事吸引，但请给重要的人留一层稳定的夹心。",
+        traits: ["灵感永动机", "社交小烟花", "热情营业中"],
+        pairing: "<strong>最佳搭子：INTJ</strong> · 你负责打开世界，对方负责提醒你护照还在包里。"
+      },
+      ISTJ: {
+        name: "靠谱蛋挞",
+        art: "tart",
+        sticker: "已读\n并已处理",
+        palette: ["#e5b45b", "#ffefbf", "#7d4e21", "#ea657b"],
+        tagline: "酥皮有层次，内芯很稳定，答应的事像烤箱定时器一样准。",
+        description: "你是蛋挞界的靠谱传奇。嘴上说随便，心里其实早有一份风险清单；生活没有你，真的会少一层酥。你不是不懂浪漫，只是觉得浪漫也应该有售后保障。",
+        traits: ["人类靠谱说明书", "细节管理大师", "承诺有售后"],
+        pairing: "<strong>最佳搭子：ESFP</strong> · 对方负责制造惊喜，你负责确保惊喜不会忘带钱包。"
+      },
+      ISFJ: {
+        name: "软心奶油泡芙",
+        art: "choux",
+        sticker: "温柔已打包\n请小心接住",
+        palette: ["#d6a775", "#ffeed5", "#744e31", "#ef8da8"],
+        tagline: "外表温和，里面藏着一整间更衣室那么大的柔软。",
+        description: "你记得每个人的口味，却常常忘记自己也值得被照顾。你的温柔不是没脾气，只是先拿去给在乎的人用了。请偶尔把奶油留一勺给自己，甜一点也没关系。",
+        traits: ["软心后勤部长", "细节记忆卡", "默默照顾王"],
+        pairing: "<strong>最佳搭子：ESTP</strong> · 对方冲在前面，你温柔地帮所有人把鞋带系好。"
+      },
+      ESTJ: {
+        name: "硬核恰巴塔",
+        art: "bread",
+        sticker: "能落地的事\n才叫计划",
+        palette: ["#c78d54", "#f5ddb6", "#6f451f", "#b1d56c"],
+        tagline: "看着朴实，掰开全是结构感，谁来都能被你安排得明明白白。",
+        description: "你是恰巴塔里的硬核派。效率是你的黄油，混乱是你的天敌，最喜欢把“差不多”推进成“已经好了”。偶尔别急着推进，人生有些部分也需要慢慢发酵。",
+        traits: ["现实推进器", "秩序守护者", "不拖到下周"],
+        pairing: "<strong>最佳搭子：INFP</strong> · 对方提醒你为什么出发，你提醒对方车票已经买好。"
+      },
+      ESFJ: {
+        name: "暖糯芋泥麻薯盒",
+        art: "cup",
+        sticker: "每个人都\n照顾到了",
+        palette: ["#a784b6", "#eadcf0", "#5e426b", "#f2bdd8"],
+        tagline: "谁是甜的、谁是咸的、谁今天心情需要加热，你都知道。",
+        description: "你是综合小料杯型人格，谁的冷暖都能舀到。气氛冷了你加热，聚会散了你收尾，忙得像甜品台总导演。请记住：你负责甜，不必负责所有人今天的心情。",
+        traits: ["社交暖场王", "记忆特别好", "关系维护员"],
+        pairing: "<strong>最佳搭子：ISTP</strong> · 你把气氛铺好，对方冷不丁递来一把最顺手的小勺。"
+      },
+      ISTP: {
+        name: "冰乳酪司康",
+        art: "bread",
+        sticker: "少说一点\n直接修好",
+        palette: ["#d2b48a", "#ffefd8", "#685137", "#b7d6e2"],
+        tagline: "外冷内软，不爱废话，但关键时刻手比嘴快。",
+        description: "别人还在开讨论会，你已经把问题拆开修好。你的浪漫通常藏在“我顺手弄了”里，情绪不常写在脸上，却会在细节里准时出现。偶尔多解释一句，别人会更容易接住你的好心。",
+        traits: ["冷静拆弹专家", "动手派", "低维护高手"],
+        pairing: "<strong>最佳搭子：ESFJ</strong> · 对方把话说暖，你把实际问题悄悄解决。"
+      },
+      ISFP: {
+        name: "蜜桃慕斯",
+        art: "cup",
+        sticker: "没在争\n只是很有品",
+        palette: ["#f2a68a", "#ffe3d7", "#8a4f40", "#f7d168"],
+        tagline: "不争不抢，但有自己的颜色和香气。",
+        description: "你感受细腻、审美在线，讨厌被大声催促。表面“都行”，其实心里有一张非常具体的美学使用说明。你不是没有主见，只是不愿意把喜欢变成一场辩论。",
+        traits: ["氛围收藏家", "细节审美派", "安静有主见"],
+        pairing: "<strong>最佳搭子：ENFJ</strong> · 对方带你进入人群，你带对方看见人群里最好看的光。"
+      },
+      ESTP: {
+        name: "黑糖珍珠泡芙",
+        art: "choux",
+        sticker: "先冲再说\n边跑边想",
+        palette: ["#98694d", "#e6c5a8", "#503321", "#29221f"],
+        tagline: "咬一口直接爆浆，行动快、反应快、快乐也来得快。",
+        description: "计划不够刺激？那就边走边改。你很会把当下过好，也很会在关键时刻临场救火。你的勇气很适合闯世界，只是偶尔记得给后果也留个座位，别让它站着吃。",
+        traits: ["快乐行动派", "临场救火队", "拒绝内耗"],
+        pairing: "<strong>最佳搭子：ISFJ</strong> · 你负责冲，对方负责温柔提醒你外套和充电器都带了。"
+      },
+      ESFP: {
+        name: "糖霜甜甜圈",
+        art: "donut",
+        sticker: "今天也要\n闪闪发光",
+        palette: ["#f488a3", "#ffe0ea", "#963d56", "#f4cd58"],
+        tagline: "一出现，空气都自动切换成亮色模式。",
+        description: "你懂快乐，也愿意分享快乐，就算难过也不想扫兴。你是自带糖霜的派对甜甜圈，热量也许会超标，存在感绝对不会。请记得，不必每次都做全场的光，你也可以安静充电。",
+        traits: ["派对永动机", "快乐放大器", "情绪有颜色"],
+        pairing: "<strong>最佳搭子：ISTJ</strong> · 对方替你守住时间表，你替对方把日程过成节日。"
+      }
+    };
+
+    const dimensionPairs = [
+      { key: "EI", left: "E", right: "I", leftLabel: "外放", rightLabel: "独处" },
+      { key: "SN", left: "S", right: "N", leftLabel: "现实", rightLabel: "直觉" },
+      { key: "TF", left: "T", right: "F", leftLabel: "理性", rightLabel: "感受" },
+      { key: "JP", left: "J", right: "P", leftLabel: "计划", rightLabel: "随性" }
+    ];
+
+    const elements = {
+      currentNumber: document.getElementById("currentNumber"),
+      progressTrack: document.getElementById("progressTrack"),
+      progressFill: document.getElementById("progressFill"),
+      questionView: document.getElementById("questionView"),
+      questionKicker: document.getElementById("questionKicker"),
+      questionTitle: document.getElementById("questionTitle"),
+      options: Array.from(document.querySelectorAll(".option-button")),
+      backButton: document.getElementById("backButton"),
+      viewResultButton: document.getElementById("viewResultButton"),
+      resultDialog: document.getElementById("resultDialog"),
+      closeDialogButton: document.getElementById("closeDialogButton"),
+      copyResultButton: document.getElementById("copyResultButton"),
+      restartButton: document.getElementById("restartButton"),
+      resultType: document.getElementById("resultType"),
+      resultName: document.getElementById("resultName"),
+      resultTagline: document.getElementById("resultTagline"),
+      resultDescription: document.getElementById("resultDescription"),
+      resultTraits: document.getElementById("resultTraits"),
+      resultArt: document.getElementById("resultArt"),
+      resultSticker: document.getElementById("resultSticker"),
+      scoreGrid: document.getElementById("scoreGrid"),
+      pairingNote: document.getElementById("pairingNote"),
+      copyAnnouncer: document.getElementById("copyAnnouncer"),
+      heroDessert: document.getElementById("heroDessert")
+    };
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let currentIndex = 0;
+    let answers = [];
+    let isLocked = false;
+    let isFinished = false;
+    let currentResultType = "";
+
+    function escapeSvgText(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function renderDessertArt(kind, palette, label) {
+      const [main, light, dark, accent] = palette;
+      const face = (x, y, scale = 1) => `
+        <g transform="translate(${x} ${y}) scale(${scale})">
+          <ellipse cx="-22" cy="0" rx="4" ry="6" fill="${dark}"/>
+          <ellipse cx="22" cy="0" rx="4" ry="6" fill="${dark}"/>
+          <ellipse cx="-21" cy="-2" rx="1.2" ry="1.7" fill="#fffdf8"/>
+          <ellipse cx="23" cy="-2" rx="1.2" ry="1.7" fill="#fffdf8"/>
+          <path d="M-7 10 Q0 17 7 10" fill="none" stroke="${dark}" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="-36" cy="11" rx="11" ry="5" fill="${accent}" opacity=".58"/>
+          <ellipse cx="36" cy="11" rx="11" ry="5" fill="${accent}" opacity=".58"/>
+        </g>`;
+
+      let shape = "";
+      let faceMarkup = face(200, 185);
+
+      if (kind === "cake") {
+        shape = `
+          <ellipse cx="200" cy="270" rx="127" ry="13" fill="${dark}" opacity=".18"/>
+          <ellipse cx="200" cy="259" rx="113" ry="15" fill="${accent}" stroke="#2a201b" stroke-width="3.5"/>
+          <path d="M164 259v32h72v-32" fill="${light}" stroke="#2a201b" stroke-width="3.5"/>
+          <ellipse cx="200" cy="291" rx="39" ry="8" fill="${accent}" stroke="#2a201b" stroke-width="3.5"/>
+          <rect x="90" y="150" width="220" height="96" rx="22" fill="${main}" stroke="#2a201b" stroke-width="4"/>
+          <path d="M90 178c16 2 15-18 30-18 18 0 15 22 33 22 16 0 17-21 33-21 18 0 18 22 36 22 15 0 18-20 34-20 18 0 20 22 37 22 13 0 19-8 27-17v40c0 12-10 22-22 22H112c-12 0-22-10-22-22Z" fill="${light}" stroke="#2a201b" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M106 220h188" stroke="${dark}" stroke-width="6" opacity=".42" stroke-linecap="round"/>
+          <ellipse cx="200" cy="154" rx="90" ry="19" fill="${light}" stroke="#2a201b" stroke-width="4"/>
+          <path d="M178 139c-2-18 5-32 18-38" fill="none" stroke="#2a201b" stroke-width="4" stroke-linecap="round"/>
+          <path d="M197 111c-14-1-18-12-14-20 9 2 15 9 14 20Z" fill="${accent}" stroke="#2a201b" stroke-width="2.7"/>
+          <circle cx="143" cy="181" r="8" fill="${accent}" stroke="#2a201b" stroke-width="2.5"/>
+          <circle cx="257" cy="181" r="8" fill="${accent}" stroke="#2a201b" stroke-width="2.5"/>
+          <path d="M135 84c-7 4-9-4-12-8 7-5 12-1 12 8ZM266 72c-1 7-9 6-13 2 2-7 7-9 13-2Z" fill="${accent}" stroke="#2a201b" stroke-width="2"/>`;
+        faceMarkup = face(200, 199, 1.05);
+      } else if (kind === "cup") {
+        shape = `
+          <ellipse cx="200" cy="275" rx="96" ry="12" fill="${dark}" opacity=".16"/>
+          <path d="M123 96h154l-15 160c-2 14-14 24-28 24h-68c-14 0-26-10-28-24Z" fill="${light}" stroke="#2a201b" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M128 142h144l-7 81H135Z" fill="${main}" opacity=".9"/>
+          <path d="M132 190h137l-4 44H136Z" fill="${accent}" opacity=".72"/>
+          <path d="M119 96h162" stroke="#2a201b" stroke-width="7" stroke-linecap="round"/>
+          <path d="M151 92c-2-24 17-31 21-49 18 14 32 0 38 22 4 14-4 25-16 29-14 5-24-5-30-13-2 7-4 10-13 11Z" fill="${light}" stroke="#2a201b" stroke-width="3.5" stroke-linejoin="round"/>
+          <path d="M145 92c9-12 23-12 31-4 8-12 25-11 33 2" fill="none" stroke="${light}" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="183" cy="55" r="9" fill="${accent}" stroke="#2a201b" stroke-width="2.5"/>
+          <path d="M184 46c-2-11 4-18 11-21 3 9-2 16-11 21Z" fill="#78a95a" stroke="#2a201b" stroke-width="2"/>
+          <path d="M112 163h-16c-12 0-18 11-14 21 4 12 17 16 30 10" fill="none" stroke="#2a201b" stroke-width="4" stroke-linecap="round"/>
+          <path d="M284 162h12c12 0 18 11 14 21-4 10-13 15-25 13" fill="none" stroke="#2a201b" stroke-width="4" stroke-linecap="round"/>`;
+        faceMarkup = face(200, 182, 1.02);
+      } else if (kind === "tart") {
+        shape = `
+          <ellipse cx="200" cy="270" rx="124" ry="12" fill="${dark}" opacity=".16"/>
+          <path d="M80 168c3-18 15-28 34-30h172c19 2 31 12 34 30l-22 78c-4 14-16 23-31 23H133c-15 0-27-9-31-23Z" fill="${main}" stroke="#2a201b" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M91 173c0-13 11-21 24-21h170c13 0 24 8 24 21" fill="${light}" stroke="#2a201b" stroke-width="4"/>
+          <ellipse cx="200" cy="170" rx="104" ry="32" fill="${accent}" stroke="#2a201b" stroke-width="3.5"/>
+          <path d="M109 163c-4-13 2-24 17-26" fill="none" stroke="#2a201b" stroke-width="3" stroke-linecap="round"/>
+          <path d="M112 138c-15 1-22-8-22-18 13-2 21 6 22 18Z" fill="#74a459" stroke="#2a201b" stroke-width="2.7"/>
+          <ellipse cx="200" cy="170" rx="78" ry="17" fill="${light}" opacity=".35"/>
+          <path d="M104 211c23 12 46 15 72 8 26 9 55 5 78-7" fill="none" stroke="${dark}" stroke-width="3" stroke-linecap="round" opacity=".4"/>`;
+        faceMarkup = face(200, 204, 1.04);
+      } else if (kind === "bread") {
+        shape = `
+          <ellipse cx="200" cy="270" rx="127" ry="12" fill="${dark}" opacity=".16"/>
+          <path d="M77 204c4-58 49-100 123-100 75 0 120 42 124 100 1 34-30 58-64 64-38 7-83 7-121 0-34-6-63-30-62-64Z" fill="${main}" stroke="#2a201b" stroke-width="4"/>
+          <path d="M117 133c24-19 50-27 85-27 36 0 66 10 88 31-19 15-51 23-87 23-35 0-67-9-86-27Z" fill="${light}" opacity=".8"/>
+          <path d="m137 145 27 21M184 138l26 22M231 141l25 20" stroke="${dark}" stroke-width="5" stroke-linecap="round" opacity=".76"/>
+          <ellipse cx="95" cy="196" rx="16" ry="11" fill="${accent}" opacity=".42"/>
+          <ellipse cx="302" cy="202" rx="18" ry="12" fill="${accent}" opacity=".38"/>`;
+        faceMarkup = face(200, 203, 1.07);
+      } else if (kind === "choux") {
+        shape = `
+          <ellipse cx="200" cy="272" rx="113" ry="12" fill="${dark}" opacity=".16"/>
+          <path d="M113 183c10-38 40-58 87-58 49 0 79 20 89 58 7 26-8 54-42 63-31 8-65 8-95 0-33-9-47-37-39-63Z" fill="${main}" stroke="#2a201b" stroke-width="4"/>
+          <path d="M118 183c14 4 20-15 36-15 17 0 19 18 39 18 17 0 20-17 38-17 17 0 23 19 40 17" fill="none" stroke="${light}" stroke-width="13" stroke-linecap="round"/>
+          <path d="M128 229c18 16 40 23 72 23 32 0 55-7 73-23" fill="none" stroke="${light}" stroke-width="9" stroke-linecap="round" opacity=".72"/>
+          <path d="M141 141c2-25 20-43 46-49 1 27-17 44-46 49Z" fill="${light}" stroke="#2a201b" stroke-width="3"/>
+          <circle cx="274" cy="131" r="13" fill="${accent}" stroke="#2a201b" stroke-width="3"/>
+          <path d="M275 118c0-9 5-14 12-16 1 8-4 14-12 16Z" fill="#7aa65d" stroke="#2a201b" stroke-width="2"/>`;
+        faceMarkup = face(200, 202, 1.05);
+      } else {
+        shape = `
+          <ellipse cx="200" cy="272" rx="128" ry="12" fill="${dark}" opacity=".16"/>
+          <circle cx="200" cy="186" r="105" fill="${main}" stroke="#2a201b" stroke-width="4"/>
+          <circle cx="200" cy="186" r="39" fill="#fff9ef" stroke="#2a201b" stroke-width="4"/>
+          <path d="M109 161c13-31 40-51 72-56M292 157c-8-25-25-42-48-51" fill="none" stroke="${light}" stroke-width="12" stroke-linecap="round"/>
+          <path d="M100 191c8 38 35 68 72 79M299 187c-7 32-28 60-57 75" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 10"/>
+          <path d="M146 118c-6-16 4-28 17-32 5 14-3 25-17 32Z" fill="${accent}" stroke="#2a201b" stroke-width="2.5"/>
+          <path d="M253 116c-1-13 8-23 19-24 2 12-6 21-19 24Z" fill="${accent}" stroke="#2a201b" stroke-width="2.5"/>`;
+        faceMarkup = face(200, 227, 1.04);
+      }
+
+      const armY = kind === "cup" ? 198 : 208;
+      const arms = `
+        <path d="M104 ${armY}c-19 4-27 17-24 28 3 10 14 13 24 6" fill="none" stroke="#2a201b" stroke-width="4" stroke-linecap="round"/>
+        <path d="M296 ${armY}c19 4 27 17 24 28-3 10-14 13-24 6" fill="none" stroke="#2a201b" stroke-width="4" stroke-linecap="round"/>
+        <path d="M157 259v25M243 259v25" stroke="#2a201b" stroke-width="7" stroke-linecap="round"/>
+        <path d="M146 286h18M236 286h18" stroke="#2a201b" stroke-width="7" stroke-linecap="round"/>`;
+
+      return `
+        <svg viewBox="0 0 400 320" role="img" aria-label="${escapeSvgText(label)}甜品拟人插画">
+          <circle cx="200" cy="164" r="141" fill="${light}" opacity=".3"/>
+          <path d="M53 93c-7 5-11-2-14-8 8-5 14-1 14 8ZM339 69c-2 8-10 9-15 5 2-8 8-11 15-5ZM328 229c-1 8-10 9-15 5 2-8 9-11 15-5Z" fill="${accent}" stroke="#2a201b" stroke-width="2"/>
+          <path d="M64 139h17M72.5 130.5v17M316 120h19M325.5 110.5v19" stroke="${dark}" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+          ${shape}
+          ${arms}
+          ${faceMarkup}
+        </svg>`;
+    }
+
+    function setOptionContent(button, option) {
+      button.querySelector(".option-text").textContent = option.text;
+      button.querySelector(".option-note").textContent = option.note;
+      button.querySelector(".option-icon").textContent = option.icon;
+      button.setAttribute("aria-label", `${button.dataset.choice.toUpperCase()}。${option.text}。${option.note}`);
+    }
+
+    function renderQuestion() {
+      const question = questions[currentIndex];
+      const displayNumber = String(currentIndex + 1).padStart(2, "0");
+
+      elements.currentNumber.textContent = displayNumber;
+      elements.questionKicker.textContent = question.category;
+      elements.questionTitle.textContent = question.prompt;
+      elements.progressTrack.setAttribute("aria-valuenow", String(currentIndex + 1));
+      elements.progressFill.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
+
+      elements.options.forEach((button) => {
+        const choice = button.dataset.choice;
+        const option = question[choice];
+        setOptionContent(button, option);
+        button.disabled = isLocked || isFinished;
+        button.classList.toggle("is-selected", !isFinished && answers[currentIndex] === option.value);
+        button.setAttribute("aria-pressed", button.classList.contains("is-selected") ? "true" : "false");
+      });
+
+      elements.backButton.disabled = currentIndex === 0 || isLocked || isFinished;
+      elements.viewResultButton.classList.toggle("is-visible", isFinished);
+
+      if (!prefersReducedMotion.matches && elements.questionView.animate) {
+        elements.questionView.animate(
+          [
+            { opacity: 0, transform: "translateY(9px)" },
+            { opacity: 1, transform: "translateY(0)" }
+          ],
+          { duration: 320, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+        );
+      }
+    }
+
+    function chooseOption(choice) {
+      if (isLocked) return;
+
+      if (isFinished) {
+        openResult();
+        return;
+      }
+
+      const button = elements.options.find((item) => item.dataset.choice === choice);
+      const question = questions[currentIndex];
+      const selected = question[choice];
+      if (!button || !selected) return;
+
+      isLocked = true;
+      answers[currentIndex] = selected.value;
+      elements.options.forEach((optionButton) => {
+        optionButton.disabled = true;
+        const active = optionButton === button;
+        optionButton.classList.toggle("is-selected", active);
+        optionButton.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      elements.backButton.disabled = true;
+
+      const pause = prefersReducedMotion.matches ? 40 : 360;
+      window.setTimeout(() => {
+        isLocked = false;
+        if (currentIndex === questions.length - 1) {
+          isFinished = true;
+          const resultType = calculateResultType();
+          showResult(resultType);
+          renderQuestion();
+          return;
+        }
+
+        currentIndex += 1;
+        renderQuestion();
+      }, pause);
+    }
+
+    function goBack() {
+      if (isLocked || isFinished || currentIndex === 0) return;
+      answers.splice(currentIndex, 1);
+      currentIndex -= 1;
+      renderQuestion();
+    }
+
+    function calculateResultType() {
+      const counts = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+      answers.forEach((letter) => {
+        if (Object.hasOwn(counts, letter)) counts[letter] += 1;
+      });
+
+      return dimensionPairs
+        .map((pair) => (counts[pair.left] > counts[pair.right] ? pair.left : pair.right))
+        .join("");
+    }
+
+    function renderScoreGrid(type) {
+      elements.scoreGrid.innerHTML = "";
+      const counts = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+      answers.forEach((letter) => {
+        if (Object.hasOwn(counts, letter)) counts[letter] += 1;
+      });
+
+      dimensionPairs.forEach((pair) => {
+        const leftScore = counts[pair.left];
+        const rightScore = counts[pair.right];
+        const winner = type.includes(pair.left) ? pair.left : pair.right;
+        const winnerScore = Math.max(leftScore, rightScore);
+        const percentage = Math.round((winnerScore / (leftScore + rightScore)) * 100);
+
+        const item = document.createElement("div");
+        item.className = "score-item";
+
+        const head = document.createElement("div");
+        head.className = "score-item-top";
+        const label = document.createElement("span");
+        label.textContent = `${pair.left} ${pair.leftLabel} / ${pair.right} ${pair.rightLabel}`;
+        const value = document.createElement("strong");
+        value.textContent = `${winner} ${percentage}%`;
+        head.append(label, value);
+
+        const track = document.createElement("div");
+        track.className = "score-track";
+        track.setAttribute("aria-hidden", "true");
+        const fill = document.createElement("div");
+        fill.className = "score-fill";
+        fill.style.width = `${percentage}%`;
+        track.append(fill);
+
+        item.append(head, track);
+        elements.scoreGrid.append(item);
+      });
+    }
+
+    function showResult(type) {
+      const result = results[type];
+      if (!result) return;
+
+      currentResultType = type;
+      const [main, light, dark, accent] = result.palette;
+      const card = elements.resultDialog.querySelector(".result-card");
+      card.style.setProperty("--result-main", main);
+      card.style.setProperty("--result-light", light);
+      card.style.setProperty("--result-dark", dark);
+      card.style.setProperty("--result-accent", accent);
+
+      elements.resultType.textContent = type;
+      elements.resultName.textContent = `【${result.name}型人格】`;
+      elements.resultTagline.textContent = result.tagline;
+      elements.resultDescription.textContent = result.description;
+      elements.resultSticker.innerHTML = result.sticker.replace("\n", "<br>");
+      elements.resultArt.innerHTML = renderDessertArt(result.art, result.palette, result.name);
+      elements.pairingNote.innerHTML = result.pairing;
+
+      elements.resultTraits.innerHTML = "";
+      result.traits.forEach((trait) => {
+        const item = document.createElement("li");
+        item.textContent = trait;
+        elements.resultTraits.append(item);
+      });
+
+      renderScoreGrid(type);
+      elements.copyAnnouncer.textContent = `测试完成，你是一个${result.name}型人格。`;
+      window.setTimeout(openResult, prefersReducedMotion.matches ? 40 : 220);
+    }
+
+    function openResult() {
+      if (!currentResultType) return;
+      document.body.classList.add("modal-open");
+      if (typeof elements.resultDialog.showModal === "function") {
+        if (!elements.resultDialog.open) elements.resultDialog.showModal();
+      } else {
+        elements.resultDialog.setAttribute("open", "");
+      }
+      elements.closeDialogButton.focus();
+    }
+
+    function closeResult() {
+      if (typeof elements.resultDialog.close === "function" && elements.resultDialog.open) {
+        elements.resultDialog.close();
+      } else {
+        elements.resultDialog.removeAttribute("open");
+        document.body.classList.remove("modal-open");
+      }
+    }
+
+    function restartTest() {
+      closeResult();
+      window.setTimeout(() => {
+        currentIndex = 0;
+        answers = [];
+        isLocked = false;
+        isFinished = false;
+        currentResultType = "";
+        renderQuestion();
+        document.querySelector(".quiz-card").scrollIntoView({
+          behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+          block: "center"
+        });
+      }, 50);
+    }
+
+    async function copyResultText() {
+      if (!currentResultType) return;
+      const result = results[currentResultType];
+      const text = `我的趣味 MBTI 甜品型人格是 ${currentResultType}【${result.name}型人格】。${result.tagline} ${result.description}`;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        elements.copyAnnouncer.textContent = "测试结果已复制到剪贴板。";
+        elements.copyResultButton.textContent = "已复制 ✓";
+      } catch (error) {
+        const temporaryInput = document.createElement("textarea");
+        temporaryInput.value = text;
+        temporaryInput.setAttribute("readonly", "");
+        temporaryInput.style.position = "fixed";
+        temporaryInput.style.opacity = "0";
+        document.body.append(temporaryInput);
+        temporaryInput.select();
+        const copied = document.execCommand("copy");
+        temporaryInput.remove();
+        elements.copyAnnouncer.textContent = copied ? "测试结果已复制到剪贴板。" : "复制失败，请手动选择结果文字。";
+        elements.copyResultButton.textContent = copied ? "已复制 ✓" : "复制失败";
+      }
+
+      window.setTimeout(() => {
+        elements.copyResultButton.textContent = "复制我的结果";
+      }, 1800);
+    }
+
+    elements.options.forEach((button) => {
+      button.addEventListener("click", () => chooseOption(button.dataset.choice));
+    });
+    elements.backButton.addEventListener("click", goBack);
+    elements.viewResultButton.addEventListener("click", openResult);
+    elements.closeDialogButton.addEventListener("click", closeResult);
+    elements.restartButton.addEventListener("click", restartTest);
+    elements.copyResultButton.addEventListener("click", copyResultText);
+    elements.resultDialog.addEventListener("close", () => {
+      document.body.classList.remove("modal-open");
+    });
+    elements.resultDialog.addEventListener("click", (event) => {
+      if (event.target === elements.resultDialog) closeResult();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (elements.resultDialog.open) return;
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      const tagName = document.activeElement?.tagName;
+      if (tagName === "TEXTAREA" || tagName === "INPUT") return;
+
+      const key = event.key.toLowerCase();
+      if (key === "a" || key === "1") {
+        event.preventDefault();
+        chooseOption("a");
+      } else if (key === "b" || key === "2") {
+        event.preventDefault();
+        chooseOption("b");
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goBack();
+      }
+    });
+
+    elements.heroDessert.innerHTML = renderDessertArt(
+      "cake",
+      ["#ff718f", "#ffe1e7", "#962b47", "#d8f36b"],
+      "草莓奶油蛋糕"
+    );
+    renderQuestion();
+  </script>
+</body>
+</html>
